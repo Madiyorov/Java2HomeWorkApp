@@ -1,51 +1,73 @@
 package com.example.clientchat;
 
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.function.Consumer;
 
 public class ClientController {
 
     @FXML
-    public TextField massageField;
+    public TextField messageTextArea;
 
     @FXML
     public Button sendMassageButton;
 
     @FXML
-    public TextArea massageTextArea;
+    public TextArea chatTextArea;
 
     @FXML
     public ListView userList;
 
-    public void appendMassageToChat(ActionEvent actionEvent) {
-        if (!massageField.getText().isEmpty()) {
-            massageTextArea.appendText(DateFormat.getDateTimeInstance().format(new Date()));
-            massageTextArea.appendText(System.lineSeparator());
-            if (!userList.getSelectionModel().isEmpty()) {
-                String sender = userList.getSelectionModel().getSelectedItem().toString();
-                massageTextArea.appendText(sender + ": ");
-            } else {
-                massageTextArea.appendText("Я: ");
-            }
-            massageTextArea.appendText(massageField.getText().trim());
-            massageTextArea.appendText(System.lineSeparator());
-            massageTextArea.appendText(System.lineSeparator());
-            massageField.requestFocus();
-            massageField.clear();
+    private Network network;
+    private ClientChat application;
+
+    public void sendMessage() {
+        String message = messageTextArea.getText();
+        chatTextArea.appendText(DateFormat.getTimeInstance().format(new Date()) + " ");
+        Platform.runLater(() -> messageTextArea.requestFocus());
+        appendMessageToChat(message);
+        try {
+            network.sendMessage(message);
+        } catch (IOException e) {
+            application.showErrorDialog("Ошибка передачи данных по сети");
         }
     }
 
-//    private void requestFocus() {
-//        Platform.runLater(new Runnable() {
-//            @Override
-//            public void run() {
-//                massageField.requestFocus();
-//            }
-//        });
-//    }
+    public void appendMessageToChat(String message) {
+        if (!message.isEmpty()) {
+            chatTextArea.appendText(message);
+            chatTextArea.appendText(System.lineSeparator());
+            messageTextArea.clear();
+        }
+    }
+
+    public Network getNetwork() {
+        return network;
+    }
+
+    public void setNetwork(Network network) {
+        this.network = network;
+        network.waitMessages(new Consumer<String>() {
+            @Override
+            public void accept(String message) {
+                appendMessageToChat(message);
+            }
+        });
+    }
+
+    public ClientChat getApplication() {
+        return application;
+    }
+
+    public void setApplication(ClientChat application) {
+        this.application = application;
+    }
 }
