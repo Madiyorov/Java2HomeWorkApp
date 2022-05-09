@@ -9,7 +9,7 @@ public class ClientHandler {
 
     public static final String AUTH_COMMAND = "/auth";
     public static final String AUTH_OK_COMMAND = "/authOk";
-    private MyServer server;
+    private final MyServer server;
     private final Socket clientSocket;
     private DataInputStream inputStream;
     private DataOutputStream outputStream;
@@ -24,7 +24,6 @@ public class ClientHandler {
         outputStream = new DataOutputStream(clientSocket.getOutputStream());
         new Thread(() -> {
             try {
-                server.subscribe(this);
                 authenticate();
                 readMessages();
             } catch (IOException e) {

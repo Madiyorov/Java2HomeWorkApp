@@ -17,6 +17,7 @@ public class MyServer {
         try (ServerSocket serverSocket = new ServerSocket(port)) {
             System.out.println("Server has been started");
             authService = new AuthService();
+
             while (true) {
                 waitAndProcessClientConnection(serverSocket);
             }
