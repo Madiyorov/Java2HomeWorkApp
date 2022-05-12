@@ -1,4 +1,4 @@
-package com.example.command.commands;
+package com.example.command.commands.commands;
 
 import java.io.Serializable;
 

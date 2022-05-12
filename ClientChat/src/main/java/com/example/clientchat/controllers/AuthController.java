@@ -6,7 +6,7 @@ import com.example.clientchat.model.Network;
 import com.example.clientchat.model.ReadMessageListener;
 import com.example.command.Command;
 import com.example.command.CommandType;
-import com.example.command.commands.AuthOkCommandData;
+import com.example.command.commands.commands.AuthOkCommandData;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

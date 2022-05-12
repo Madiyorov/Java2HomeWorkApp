@@ -18,7 +18,6 @@ import javafx.scene.control.TextField;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Date;
-import java.util.List;
 
 public class ClientController {
 
@@ -49,6 +48,8 @@ public class ClientController {
 
         try {
             if (sender != null) {
+                Network.getInstance().sendPrivateMessage(sender, message);
+            } else {
                 Network.getInstance().sendMessage(message);
             }
 

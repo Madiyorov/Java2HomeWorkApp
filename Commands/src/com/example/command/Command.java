@@ -1,12 +1,6 @@
 package com.example.command;
 
-import com.example.command.commands.AuthCommandData;
-import com.example.command.commands.AuthOkCommandData;
-import com.example.command.commands.commands.ClientMessageCommandData;
-import com.example.command.commands.commands.ErrorCommandData;
-import com.example.command.commands.commands.PrivateMessageCommandData;
-import com.example.command.commands.commands.PublicMessageCommandData;
-import com.example.command.commands.commands.UpdateUserListCommandData;
+import com.example.command.commands.commands.*;
 
 import java.io.Serializable;
 import java.util.List;

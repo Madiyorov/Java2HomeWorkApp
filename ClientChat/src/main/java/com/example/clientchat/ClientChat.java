@@ -55,7 +55,6 @@ public class ClientChat extends Application {
         authStage = new Stage();
         authStage.initOwner(chatStage);
         authStage.initModality(Modality.WINDOW_MODAL);
-
         authStage.setScene(new Scene(authDialogPanel));
     }
 

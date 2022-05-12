@@ -2,7 +2,7 @@ package com.example.server.chat;
 
 import com.example.command.Command;
 import com.example.command.CommandType;
-import com.example.command.commands.AuthCommandData;
+import com.example.command.commands.commands.AuthCommandData;
 import com.example.command.commands.commands.PrivateMessageCommandData;
 import com.example.command.commands.commands.PublicMessageCommandData;
 
